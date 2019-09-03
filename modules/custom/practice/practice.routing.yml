@@ -1,0 +1,35 @@
+practice.form:
+ path: '/subsciberform'
+ defaults:
+   _title: 'Contact form'
+   _form: '\Drupal\practice\Form\SubscriberForm'
+ requirements:
+   _permission: 'access content'
+
+
+practice.data_display:
+  path: '/subsciberform_data'
+  defaults:
+    _controller: '\Drupal\practice\Controller\DisplayTableController::display'
+    _title: 'Display'
+  requirements:
+    _permission: 'access content'
+
+
+
+practice.delete_subscriber:
+  path: '/subscriber/delete/{cid}'
+  defaults:
+    _form: '\Drupal\practice\Form\deleteForm'
+    _title: 'DeleteForm'
+  requirements:
+    _access: 'access content'
+
+
+practice.subscriber2_edit:
+  path: '/subscriber2/edit'
+  defaults:
+    _form: '\Drupal\practice\Form\subscriberData2'
+    _title: 'edit'
+  requirements:
+    _permission: 'access content'

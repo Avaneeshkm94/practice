@@ -1,0 +1,96 @@
+<?php
+use Drupal\Core\Database\Database;
+function practice_schema()
+{
+    $schema['subscribers'] = array(
+        'description' => 'The table for storing the subscriber data.',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for subscriber.',
+                'type' => 'serial',
+                'not null' => TRUE,
+                'unsigned' => TRUE,
+            ),
+            'name' => array(
+                'description' => 'Subscriber name.',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'address' => array(
+                'description' => 'address.',
+                'type' => 'varchar',
+                 'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'subscription_date' => array(
+                'description' => 'Subscription date time(yyyy-mm-dd H:i:s).',
+                'type' => 'varchar',
+                'mysql_type' => 'DATETIME',
+                 'length' => 255,
+                'not null' => TRUE,
+            ),
+            'gender' => array(
+                'description' => 'Subscriber status(1=Unblock,0=Block).',
+                'type' => 'varchar',
+                 'length' => 255,
+                'not null' => TRUE,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}
+
+// function practice_update_8008(){
+//  $spec = array(
+//     'type' => 'varchar',
+//     'description' => "mobile",
+//     'length' => 255,
+//     'not null' => FALSE,
+//     'default' => '',
+//   );
+function practice_install() {
+  $schema = Database::getConnection()->schema();
+  if( $schema->tableExists('subscribers')){
+ $spec = array(
+   'type' => 'varchar',
+   'description' => "mobile",
+   'length' => 255,
+   'not null' => FALSE,
+   'default' => '',
+ );
+$schema->addField('subscribers', 'phone', $spec);
+}
+}
+// function practice_uninstall() {
+//   $schema = Database::getConnection()->schema();
+//   if( $schema->tableExists('subscribers')){
+//  $spec = array(
+//    'type' => 'varchar',
+//    'description' => "mobile",
+//    'length' => 255,
+//    'not null' => FALSE,
+//    'default' => '',
+//  );
+// $schema->addField('subscribers', 'phone', $spec);
+// }
+// }
+
+/**
+* Implements hook_uninstall().
+*/
+function practice_uninstall() {
+//\Drupal\Core\Database\Database::setActiveConnection('otherdb');
+$connection = \Drupal\Core\Database\Database::getConnection();
+
+$schema = practice_schema();
+foreach ($schema as $name => $table) {
+  $connection->schema()->dropTable($name);
+}
+
+//\Drupal\Core\Database\Database::setActiveConnection();
+}
+?>
