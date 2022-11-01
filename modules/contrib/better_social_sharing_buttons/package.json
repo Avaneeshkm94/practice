@@ -4,7 +4,7 @@
   "description": "Create svg sprites for better_social_sharing_buttons",
   "main": "index.js",
   "dependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-svg-sprite": "^1.4.0"
   },
   "devDependencies": {},
